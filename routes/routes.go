@@ -7,6 +7,7 @@ import (
 )
 
 func SetUpRoutes(app *fiber.App) {
+	app.Get("/", controllers.Index)
 	app.Post("/tasks", controllers.CreateTask)
 	app.Get("/tasks", controllers.ListTasks)
 	app.Get("/tasks/{id}", controllers.ViewTask)
