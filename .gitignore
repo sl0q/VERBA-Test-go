@@ -1,4 +1,3 @@
 .vscode
 *.txt
-credentials
 credentials/credentials.json
