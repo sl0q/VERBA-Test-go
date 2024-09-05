@@ -22,7 +22,7 @@ func ListTasks(ctx *fiber.Ctx) error {
 		})
 	}
 
-	// composing responce
+	// compose responce
 	var responce []fiber.Map
 	for _, task := range tasks {
 		responce = append(responce, fiber.Map{

@@ -16,6 +16,7 @@ func CreateTask(ctx *fiber.Ctx) error {
 	//parse request
 	var data map[string]string
 	if err := ctx.BodyParser(&data); err != nil {
+		log.Println("Error: Failed to parse request body")
 		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"error": "Неправильный формат данных",
 		})

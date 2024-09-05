@@ -11,9 +11,10 @@ import (
 func ViewTask(ctx *fiber.Ctx) error {
 	log.Println("Received view task by ID request")
 
+	// get task id
 	id, _ := ctx.ParamsInt("id")
 	if id == 0 {
-		log.Println("Error: Failed to query data from DB")
+		log.Println("Error: Invalid ID in URL parameters")
 		return ctx.Status(fiber.StatusNotFound).JSON(fiber.Map{
 			"error": "Задача не найдена",
 		})
