@@ -6,6 +6,7 @@ import (
 	"log"
 
 	"github.com/gofiber/fiber/v2"
+	"gorm.io/gorm"
 )
 
 func ViewTask(ctx *fiber.Ctx) error {
@@ -23,7 +24,12 @@ func ViewTask(ctx *fiber.Ctx) error {
 	// query tasks from DB
 	var task models.Task
 	queryResult := database.DB.First(&task, id)
-	if queryResult.Error != nil {
+	if queryResult.Error == gorm.ErrRecordNotFound {
+		log.Println("Task not found")
+		return ctx.Status(fiber.StatusNotFound).JSON(fiber.Map{
+			"error": "Задача не найдена",
+		})
+	} else if queryResult.Error != nil {
 		log.Println("Error: Failed to query data from DB")
 		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"error": "Проблема на сервере",
