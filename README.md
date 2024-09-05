@@ -11,15 +11,18 @@
 
 Для хранения данных был использован PostgreSQL
 
+## Требования
+golang верси 1.22 и выше
+
 ## Зависимости
-- Gorm
-- go-gorm/postgres
-- Fiber
+- Gorm - для работы с БД
+- Fiber - для работы с REST API
 
-## Установка
+## Использование
+Распаковать проект в удобную для вас папку.
 
-```
-go get -u gorm.io/gorm
-go get -u gorm.io/driver/postgres
-go get github.com/gofiber/fiber/v2
-```
+Создать .json файл, в котором будет указаны реквизиты для подключения к базе данных. Пример такого файла можно найти в `credentials/example_credentials.json`
+
+В терминале выполнить команду `go run main.go [путь к вашему файлу credentials.json]`
+
+Все зависимости должны установиться автоматически.
