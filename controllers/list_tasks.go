@@ -10,7 +10,7 @@ import (
 )
 
 func ListTasks(ctx *fiber.Ctx) error {
-	log.Println("Received tokens giveaway request")
+	log.Println("Received list all tasks request")
 
 	// query tasks from DB
 	var tasks []models.Task

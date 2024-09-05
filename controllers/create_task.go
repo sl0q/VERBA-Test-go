@@ -11,7 +11,7 @@ import (
 )
 
 func CreateTask(ctx *fiber.Ctx) error {
-	log.Println("Received tokens giveaway request")
+	log.Println("Received task creation request")
 
 	//parse request
 	var data map[string]string
