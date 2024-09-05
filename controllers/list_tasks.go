@@ -35,5 +35,6 @@ func ListTasks(ctx *fiber.Ctx) error {
 		})
 	}
 
+	log.Println("Operation completed successfully")
 	return ctx.Status(fiber.StatusCreated).JSON(responce)
 }
