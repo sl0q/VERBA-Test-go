@@ -82,7 +82,7 @@ func UpdateTask(ctx *fiber.Ctx) error {
 
 	// data updated successfully
 	log.Println("Operation completed successfully")
-	return ctx.Status(fiber.StatusCreated).JSON(fiber.Map{
+	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
 		"id":          updatedTask.ID,
 		"title":       updatedTask.Title,
 		"description": updatedTask.Description,

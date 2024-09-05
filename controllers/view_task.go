@@ -31,7 +31,7 @@ func ViewTask(ctx *fiber.Ctx) error {
 	}
 
 	log.Println("Operation completed successfully")
-	return ctx.Status(fiber.StatusCreated).JSON(fiber.Map{
+	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
 		"id":          task.ID,
 		"title":       task.Title,
 		"description": task.Description,
