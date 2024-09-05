@@ -21,6 +21,38 @@ func CreateTask(ctx *fiber.Ctx) error {
 		})
 	}
 
+	// validate request fields
+	_, exists := data["title"]
+	if !exists {
+		log.Println("Field [title] in request body is absent.")
+		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Неправильный формат данных.",
+		})
+	}
+	_, exists = data["description"]
+	if !exists {
+		log.Println("Field [description] in request body is absent.")
+		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Неправильный формат данных.",
+		})
+	}
+	_, exists = data["due_date"]
+	if !exists {
+		log.Println("Field [due_date] in request body is absent.")
+		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Неправильный формат данных.",
+		})
+	}
+	_, err := time.Parse(time.RFC3339, data["due_date"])
+	if err != nil {
+		log.Println("Field [due_date] is invalid")
+		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Неправильный формат данных.",
+		})
+	}
+	// можно еще добавить проверку на попытку создать задачу с истекшим сроком
+	// но на данный момент это фича
+
 	newTask := models.Task{
 		Title:       data["title"],
 		Description: data["description"],
@@ -31,14 +63,15 @@ func CreateTask(ctx *fiber.Ctx) error {
 
 	// save data to DB
 	if err := database.DB.Create(&newTask).Error; err != nil {
+		log.Println("Failed to write data to DB")
 		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"error": "Проблема на сервере",
 		})
 	}
 
-	// Выдача токенов прошла успешно
+	// data saved successfully
 	return ctx.Status(fiber.StatusCreated).JSON(fiber.Map{
-		"id":          newTask.ID, // CHANGE
+		"id":          newTask.ID,
 		"title":       newTask.Title,
 		"description": newTask.Description,
 		"due_date":    newTask.Due_date,
